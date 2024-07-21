@@ -1,0 +1,38 @@
+<html>
+<body>
+
+<input type="file" id="imageUpload1">
+<input type="file" id="imageUpload2">
+<input type="file" id="imageUpload3">
+<input type="file" id="imageUpload4">
+<br>
+<table style="width:100%">
+<tr>
+<th><img id="displayImage1" src="#" alt="Uploaded image 1" height="330" width="330">
+<textarea rows="5" cols="10" style="font-size: 12pt" id="myText"></textarea> </th>
+<th><img id="displayImage2" src="#" alt="Uploaded image 2" height="330" width="330">
+<textarea rows="5" cols="10" style="font-size: 12pt" id="myText"></textarea></th>
+</tr>
+<tr>
+<th><img id="displayImage3" src="#" alt="Uploaded image 3" height="330" width="330"> <textarea rows="5" cols="10" style="font-size: 12pt" id="myText"></textarea></th>
+<th><img id="displayImage4" src="#" alt="Uploaded image 4" height="330" width="330"> <textarea rows="5" cols="10" style="font-size: 12pt" id="myText"></textarea></th>
+</tr>
+<script>
+window.addEventListener('load', function() {
+    // Attach change event listener to each file input
+    document.querySelectorAll('input[type="file"]').forEach(function(input, index) {
+        input.addEventListener('change', function() {
+            if (this.files && this.files[0]) {
+                var img = document.querySelector('#displayImage' + (index + 1));
+                img.onload = () => {
+                    URL.revokeObjectURL(img.src); // Free memory (no longer needed)
+                };
+                img.src = URL.createObjectURL(this.files[0]); // Set src to blob URL
+            }
+        });
+    });
+});
+
+</script>
+
+</body> </html>
